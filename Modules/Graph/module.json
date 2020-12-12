@@ -1,0 +1,13 @@
+{
+    "name": "Graph",
+    "alias": "graph",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Graph\\Providers\\GraphServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
