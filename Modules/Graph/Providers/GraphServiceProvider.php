@@ -3,7 +3,7 @@
 namespace Modules\Graph\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
+use Modules\Graph\Providers;
 
 class GraphServiceProvider extends ServiceProvider
 {
@@ -38,6 +38,8 @@ class GraphServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
+        $this->app->register(RepositoryServiceProvider::class);
+        $this->app->register(ServiceGraphServiceProvider::class);
     }
 
     /**

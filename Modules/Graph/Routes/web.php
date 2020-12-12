@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,6 +14,10 @@
 |
 */
 
-Route::prefix('graph')->group(function() {
-    Route::get('/', 'GraphController@index');
+/*Route::prefix('graph')->group(function() {
+    Route::get('/{id}', 'GraphController@show');
+});*/
+
+Route::group(['prefix' => 'v1'], function () {
+    Route::resource('graphs', 'GraphController');//->only(['index','show']);
 });

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,12 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/graph', function (Request $request) {
+/*Route::middleware('auth:api')->get('/graph', function (Request $request) {
     return $request->user();
+});*/
+
+Route::group(['prefix' => 'v1'], function () {
+    Route::put('graphs/{id}','GraphController@update');
+    Route::resource('graphs', 'GraphController')->except('update');
+
 });
