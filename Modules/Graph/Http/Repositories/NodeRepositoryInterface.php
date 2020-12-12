@@ -1,8 +1,8 @@
 <?php
 namespace Modules\Graph\Http\Repositories;
 
+use Modules\Graph\Entities\Graph;
 
-Use  Modules\Graph\Entities\Node;
 
 Interface NodeRepositoryInterface
 {
@@ -15,7 +15,7 @@ Interface NodeRepositoryInterface
     */
 
 
-   public function create(array $parameters);
+    public function create(array $parametersint,Graph $graph);
 
    public function find(int $id);
 

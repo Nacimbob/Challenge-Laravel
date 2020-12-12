@@ -10,7 +10,7 @@ use Modules\Graph\Http\Services\GraphServiceInterface;
 use Modules\Graph\Transformers\GraphResource;
 use Modules\Graph\Http\Traits\ApiResponse;
 use Modules\Graph\Http\Requests\UpdateGraphRequest;
-use Nwidart\Modules\Commands\UpdateCommand;
+
 
 class GraphController extends Controller
 {
@@ -48,7 +48,7 @@ class GraphController extends Controller
         return  $this->success('Graph created successfully',new GraphResource($result),201) ;
        }
 
-       return  $this->failure('error creating new graph',400);
+       return  $this->failure('error creating new graph',422);
 
 
 
@@ -64,7 +64,7 @@ class GraphController extends Controller
     {
         $result= $this->graphService->graph($id);
         if($this->graphService->graph($id)){
-            $this->success('Graph meta data',new GraphResource($result),200);
+          return   $this->success('Graph meta data',new GraphResource($result),200);
         }
 
         return  $this->failure('graph not found',404) ;
@@ -87,7 +87,7 @@ class GraphController extends Controller
             return  $this->success('Graph updated successfully',new GraphResource($result),200) ;
         }
 
-        return  $this->failure('error updating graph',404) ;
+        return  $this->failure('error updating graph',422) ;
 
 
     }

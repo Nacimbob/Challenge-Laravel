@@ -3,7 +3,7 @@ namespace Modules\Graph\Http\Repositories;
 
 Use  Modules\Graph\Http\Repositories\NodeRepositoryInterface;
 Use  Modules\Graph\Entities\Node;
-
+Use  Modules\Graph\Entities\Graph;
 class NodeRepository  implements NodeRepositoryInterface
 {
 
@@ -15,9 +15,9 @@ class NodeRepository  implements NodeRepositoryInterface
     */
 
 
-   public function create(array $parameters){
+   public function create(array $parameters,Graph $graph){
 
-        return Node::create($parameters);
+        return $graph->nodes()->create($parameters);
    }
 
    public function find(int $id)
