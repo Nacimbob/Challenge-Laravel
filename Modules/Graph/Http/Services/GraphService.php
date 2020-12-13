@@ -4,7 +4,8 @@ namespace Modules\Graph\Http\Services;
 Use  Modules\Graph\Http\Services\GraphServiceInterface;
 use Modules\Graph\Http\Repositories\GraphRepositoryInterface;
 use  Illuminate\Http\Request;
-use Modules\Graph\Http\Requests\UpdateGraphRequest;
+use Modules\Graph\Http\Requests\GraphRequest;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 class GraphService  implements GraphServiceInterface
 {
 
@@ -34,20 +35,35 @@ class GraphService  implements GraphServiceInterface
 
     }
 
-    public function update(UpdateGraphRequest $request,int $graph_id){
+    public function update(GraphRequest $request,int $graph_id){
+        $graph= $this->graphRepo->find($graph_id);
 
-      return $this->graphRepo->update($request->all(),$graph_id);
+        if(!$graph) {
+            throw new ModelNotFoundException('Graph not found by Id '.$graph_id);
+        }
+
+        return $this->graphRepo->update($request->all(),$graph_id);
 
     }
 
     public function graph(int $graph_id){
 
-        return $this->graphRepo->find($graph_id);
+        $graph= $this->graphRepo->find($graph_id);
+        if(!$graph) {
+            throw new ModelNotFoundException('Graph not found by Id '.$graph_id);
+        }
+
+
+        return $graph;
 
     }
 
     public function delete(int $graph_id)
     {
+        $graph= $this->graphRepo->find($graph_id);
+        if(!$graph) {
+          throw new ModelNotFoundException('Graph not found by Id '.$graph_id);
+        }
         return $this->graphRepo->delete($graph_id);
     }
 

@@ -9,7 +9,7 @@ class Relation extends Model
 {
     public $timestamps=false;
 
-    protected $fillable = ['from_node','to_node'];
+    protected $fillable = ['from_node','to_node','graph_id'];
 
 
 }

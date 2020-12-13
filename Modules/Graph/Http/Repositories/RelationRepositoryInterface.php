@@ -1,6 +1,7 @@
 <?php
 namespace Modules\Graph\Http\Repositories;
 
+Use  Modules\Graph\Entities\Graph;
 
 
 Interface RelationRepositoryInterface
@@ -14,7 +15,7 @@ Interface RelationRepositoryInterface
     */
 
 
-   public function create(array $parameters);
+   public function create(array $parameters,Graph $graph);
 
    public function find(int $id);
 
@@ -22,8 +23,7 @@ Interface RelationRepositoryInterface
 
    public function delete(int $id);
 
-
-
+   public function exists($graph_id,$from_node,$to_node);
 
 
 }

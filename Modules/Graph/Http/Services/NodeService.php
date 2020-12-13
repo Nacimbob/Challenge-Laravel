@@ -6,6 +6,8 @@ use Modules\Graph\Http\Repositories\NodeRepositoryInterface;
 use Modules\Graph\Http\Repositories\GraphRepositoryInterface;
 use  Illuminate\Http\Request;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+
 class NodeService  implements NodeServiceInterface
 {
 
@@ -20,15 +22,18 @@ class NodeService  implements NodeServiceInterface
 
 
     /*
-       create a new Graph
-       @return the created formation
+       create a new node
+       @return the created node
     */
 
     public function store(Request $request,int $graph_id){
-        if($this->graphRepo->find($graph_id)){
-            return  $this->nodeRepo->create($request->all(),$this->graphRepo->find($graph_id));
+
+        if(!$this->graphRepo->find($graph_id)) {
+            throw new ModelNotFoundException('Graph not found by Id '.$graph_id);
         }
-        return null;
+
+        return  $this->nodeRepo->create($request->all(),$this->graphRepo->find($graph_id));
+
 
     }
 

@@ -9,8 +9,8 @@ use Illuminate\Routing\Controller;
 use Modules\Graph\Http\Services\GraphServiceInterface;
 use Modules\Graph\Transformers\GraphResource;
 use Modules\Graph\Http\Traits\ApiResponse;
-use Modules\Graph\Http\Requests\UpdateGraphRequest;
-
+use Modules\Graph\Http\Requests\GraphRequest;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class GraphController extends Controller
 {
@@ -41,7 +41,7 @@ class GraphController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function store(GraphRequest  $request)
     {
        $result=$this->graphService->store($request);
        if($result) {
@@ -62,12 +62,8 @@ class GraphController extends Controller
      */
     public function show($id)
     {
-        $result= $this->graphService->graph($id);
-        if($this->graphService->graph($id)){
-          return   $this->success('Graph meta data',new GraphResource($result),200);
-        }
 
-        return  $this->failure('graph not found',404) ;
+        return  $this->success('Graph meta data',new GraphResource($this->graphService->graph($id)),200);
 
     }
 
@@ -79,15 +75,15 @@ class GraphController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(UpdateGraphRequest $request,int $id)
+    public function update(GraphRequest $request,int $id)
     {
         //
-        $result=$this->graphService->update($request, $id);
-        if($result) {
-            return  $this->success('Graph updated successfully',new GraphResource($result),200) ;
-        }
 
-        return  $this->failure('error updating graph',422) ;
+
+
+            return  $this->success('Graph updated successfully',new GraphResource($this->graphService->update($request, $id)),200) ;
+
+
 
 
     }
@@ -101,11 +97,8 @@ class GraphController extends Controller
      */
     public function destroy($id)
     {
-        if($this->graphService->delete($id)){
+
 
             return  $this->success('Graph deleted successfully',200) ;
-
-        }
-        return  $this->failure('error deleting graph',404) ;
     }
 }

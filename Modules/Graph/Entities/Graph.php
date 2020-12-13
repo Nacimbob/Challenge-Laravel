@@ -15,6 +15,12 @@ class Graph extends Model
       return $this->HasMany('Modules\Graph\Entities\Node');
     }
 
+    public function relations(){
+        return $this->hasMany('Modules\Graph\Entities\Relation');
+    }
+
+
+
     protected $fillable = ['name','description'];
 
 

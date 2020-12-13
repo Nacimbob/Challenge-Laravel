@@ -16,7 +16,7 @@ Interface  RelationServiceInterface
        @return the created formation
     */
 
-    public function store(Request $request);
+    public function store(Request $request,int $id);
 
 
 

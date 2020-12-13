@@ -23,6 +23,6 @@ Route::group(['prefix' => 'v1'], function () {
     Route::put('graphs/{id}','GraphController@update');
     Route::resource('graphs', 'GraphController')->except('update');
     Route::post('graphs/{id}/nodes','NodeController@store');
-
+    Route::post('graphs/{id}/relations','RelationController@store');
 
 });

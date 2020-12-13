@@ -3,7 +3,8 @@ namespace Modules\Graph\Http\Repositories;
 
 Use  Modules\Graph\Http\Repositories\RelationRepositoryInterface;
 Use  Modules\Graph\Entities\Relation;
-
+Use  Modules\Graph\Entities\Graph;
+use Illuminate\Support\Facades\DB;
 class RelationRepository  implements RelationRepositoryInterface
 {
 
@@ -15,10 +16,11 @@ class RelationRepository  implements RelationRepositoryInterface
     */
 
 
-   public function create(array $parameters){
+    public function create(array $parameters,Graph $graph){
 
-        return Relation::create($parameters);
+        return $graph->relations()->create($parameters);
    }
+
 
    public function find(int $id)
    {
@@ -33,6 +35,13 @@ class RelationRepository  implements RelationRepositoryInterface
        return Relation::destroy($id);
    }
 
+   public function exists($graph_id,$from_node,$to_node){
+    return DB::table('relations')->where('graph_id', $graph_id)
+                          ->where('from_node', $from_node)
+                          ->where('to_node',$to_node)->exists();
+
+
+   }
 
 
 
