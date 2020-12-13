@@ -24,4 +24,6 @@ Interface GraphRepositoryInterface
 
    public function update(array $parameters,int $graph_id);
 
+   public function clearEmpy();
+
 }

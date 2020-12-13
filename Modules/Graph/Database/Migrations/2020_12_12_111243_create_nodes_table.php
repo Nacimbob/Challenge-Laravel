@@ -14,10 +14,12 @@ class CreateNodesTable extends Migration
     public function up()
     {
         Schema::create('nodes', function (Blueprint $table) {
-            $table->id();
-            $table->integer('graph_id')->unsigned();
+            $table->bigIncrements('id');
+
+            $table->unsignedBigInteger('graph_id');
             $table->foreign('graph_id')
             ->references('id')->on('graphs')
+            ->constrained()
             ->onDelete('cascade');
 
             //$table->timestamps();

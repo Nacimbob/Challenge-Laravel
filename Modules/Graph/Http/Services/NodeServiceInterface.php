@@ -19,7 +19,7 @@ Interface  NodeServiceInterface
     public function store(Request $request,int $graph_id);
 
 
-
+    public function delete(int $node_id);
 
 
 

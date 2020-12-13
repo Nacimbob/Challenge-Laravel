@@ -2,7 +2,7 @@
 
 namespace Modules\Graph\Http\Controllers;
 
-use Illuminate\Contracts\Support\Renderable;
+
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
@@ -10,7 +10,8 @@ use Modules\Graph\Http\Services\GraphServiceInterface;
 use Modules\Graph\Transformers\GraphResource;
 use Modules\Graph\Http\Traits\ApiResponse;
 use Modules\Graph\Http\Requests\GraphRequest;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Modules\Graph\Transformers\GraphDetailedResource;
+
 
 class GraphController extends Controller
 {
@@ -25,8 +26,8 @@ class GraphController extends Controller
          $this->graphService=$graph;
     }
     /**
-     * Display a listing of the resource.
-     * @return Renderable
+     * Display a listing of the graphs.
+     * @return list of graphs
      */
     public function index()
     {
@@ -37,68 +38,68 @@ class GraphController extends Controller
 
 
     /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
+     * create new graph.
+     * @param GraphRequest $request validates given params
+     * @return success
+     * exceptions  ar handeled globaly in app/exceptions/handler
      */
+
     public function store(GraphRequest  $request)
     {
-       $result=$this->graphService->store($request);
-       if($result) {
-        return  $this->success('Graph created successfully',new GraphResource($result),201) ;
-       }
 
-       return  $this->failure('error creating new graph',422);
-
-
-
+        return  $this->success('Graph created successfully',new GraphResource($this->graphService->store($request)),201) ;
 
     }
 
     /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
+     * show the specified graph.
+     * @param int $id of graph
+     * @param Request $request holds URI params if all==true return graph with nodes and relations else return graph meta data
+     * @return success
+     * exceptions  ar handeled globaly in app/exceptions/handler
      */
-    public function show($id)
+    public function show(Request $request,$id)
     {
+       if($request->all==true){
+        return $this->success('Graph with nodes and relations',new GraphDetailedResource($this->graphService->graph($id)),200);
+       }
+       return  $this->success('Graph meta data',new GraphResource($this->graphService->graph($id)),200);
 
-        return  $this->success('Graph meta data',new GraphResource($this->graphService->graph($id)),200);
+
 
     }
 
 
 
+
+
+
     /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
+     * update the specified graph.
+     * @param int $id of graph
+     * @param GraphRequest $request validates given params
+     * @return success
+     * exceptions  ar handeled globaly in app/exceptions/handler
      */
     public function update(GraphRequest $request,int $id)
     {
-        //
-
-
 
             return  $this->success('Graph updated successfully',new GraphResource($this->graphService->update($request, $id)),200) ;
-
-
-
 
     }
 
 
 
     /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
+     * Remove the specified graph.
+     * @param int $id of graph
+     * @return success
+     * exceptions  ar handeled globaly in app/exceptions/handler
      */
     public function destroy($id)
     {
 
+       return  $this->success('Graph deleted successfully',$this->graphService->delete($id),200) ;
 
-            return  $this->success('Graph deleted successfully',200) ;
     }
 }

@@ -3,6 +3,7 @@ namespace Modules\Graph\Http\Repositories;
 
 Use  Modules\Graph\Http\Repositories\GraphRepositoryInterface;
 Use  Modules\Graph\Entities\Graph;
+use Illuminate\Support\Facades\DB;
 
 class GraphRepository  implements GraphRepositoryInterface
 {
@@ -45,6 +46,12 @@ class GraphRepository  implements GraphRepositoryInterface
 
    }
 
+
+   public function clearEmpy(){
+
+    return DB::statement('DELETE from graphs WHERE (graphs.id NOT IN (SELECT nodes.graph_id FROM nodes))');
+
+   }
 
 
 }

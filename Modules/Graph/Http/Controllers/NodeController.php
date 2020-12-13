@@ -2,7 +2,7 @@
 
 namespace Modules\Graph\Http\Controllers;
 
-use Illuminate\Contracts\Support\Renderable;
+
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Graph\Http\Services\NodeServiceInterface;
@@ -22,17 +22,29 @@ class NodeController extends Controller
 
 
     /**
-     * Store a newly created resource in storage.
+     * create a new Node for the specified graph.
      * @param Request $request
-     * @return Renderable
+     * @param int $id graph id
+     * @return success
+     * exceptions  ar handeled globaly in app/exceptions/handler
      */
     public function store(Request $request,int $id)
     {
-        //
+
             return  $this->success('Node created successfully',$this->nodeService->store($request,$id),201) ;
     }
 
 
+     /**
+     * Remove the specified node.
+     * @param int $id of node
+     * @return success
+     * exceptions  ar handeled globaly in app/exceptions/handler
+     */
+    public function destroy($id)
+    {
+      return  $this->success('Graph deleted successfully',$this->nodeService->delete($id),200) ;
+    }
 
 
 }

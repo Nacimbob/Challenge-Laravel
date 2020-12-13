@@ -24,5 +24,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::resource('graphs', 'GraphController')->except('update');
     Route::post('graphs/{id}/nodes','NodeController@store');
     Route::post('graphs/{id}/relations','RelationController@store');
+    Route::delete('nodes/{id}','NodeController@destroy');
+
 
 });

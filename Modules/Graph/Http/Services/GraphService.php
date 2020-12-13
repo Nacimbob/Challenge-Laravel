@@ -58,6 +58,9 @@ class GraphService  implements GraphServiceInterface
 
     }
 
+
+
+
     public function delete(int $graph_id)
     {
         $graph= $this->graphRepo->find($graph_id);
@@ -68,6 +71,10 @@ class GraphService  implements GraphServiceInterface
     }
 
 
+    public function clearEmpy()
+    {
+        return $this->graphRepo->clearEmpy();
+    }
 
 
 }

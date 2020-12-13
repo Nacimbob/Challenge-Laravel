@@ -14,7 +14,7 @@ class CreateGraphsTable extends Migration
     public function up()
     {
         Schema::create('graphs', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('name')->unique()->nullable();
             $table->string('description')->nullable();
 

@@ -22,4 +22,5 @@ Interface GraphServiceInterface
 
    public function delete(int $graph_id);
 
+   public function clearEmpy();
 }

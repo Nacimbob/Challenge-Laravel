@@ -37,6 +37,13 @@ class NodeService  implements NodeServiceInterface
 
     }
 
+    public function delete(int $node_id){
+        if(!$this->nodeRepo->find($node_id)){
+            throw new ModelNotFoundException('Node not found by Id '.$node_id);
+        }
+        return $this->nodeRepo->delete($node_id);
+    }
+
 
 
 

@@ -23,7 +23,7 @@ Interface RelationRepositoryInterface
 
    public function delete(int $id);
 
-   public function exists($graph_id,$from_node,$to_node);
+   public function exists($from_node,$to_node);
 
 
 }

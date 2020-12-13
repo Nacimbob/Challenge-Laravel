@@ -23,7 +23,7 @@ Interface NodeRepositoryInterface
 
    public function delete(int $id);
 
-
+   public function belongSameGraph($from_node,$to_node);
 
 
 
